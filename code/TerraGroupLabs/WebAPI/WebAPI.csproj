@@ -30,4 +30,8 @@
       <ProjectReference Include="..\Models\Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="Configs\appsettings.json" />
+    </ItemGroup>
+
 </Project>

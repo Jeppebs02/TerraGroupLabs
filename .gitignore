@@ -399,3 +399,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 code/TerraGroupLabs/DataAccess/Configs/appsettings.json
+code/TerraGroupLabs/WebAPI/Configs/appsettings.json
