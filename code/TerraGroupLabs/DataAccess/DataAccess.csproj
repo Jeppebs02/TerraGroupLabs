@@ -7,11 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="DataBaseLayer\" />
+      <ProjectReference Include="..\Models\Models.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Models\Models.csproj" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+        <HintPath>..\..\..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\8.0.12\ref\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

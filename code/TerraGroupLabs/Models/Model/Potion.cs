@@ -1,4 +1,4 @@
-﻿namespace Models;
+﻿namespace Models.Model;
 
 public class Potion
 {
@@ -12,8 +12,4 @@ public class Potion
         this.name = name_;
         this.price = price_;
     }
-    
-    
-    
-    
 }
