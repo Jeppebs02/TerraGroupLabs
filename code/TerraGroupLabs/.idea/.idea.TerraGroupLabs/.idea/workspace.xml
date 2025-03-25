@@ -13,9 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb6238fa-30c1-4a3f-9baa-83961b6dea4f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/TerraGroupLabs.sln" beforeDir="false" afterPath="$PROJECT_DIR$/TerraGroupLabs.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/WebAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebServer/WebServer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/WebServer.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/Model/Potion.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TerraGroupLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TerraGroupLabs/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +52,11 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
@@ -214,7 +218,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742938106765</updated>
-      <workItem from="1742938107940" duration="1924000" />
+      <workItem from="1742938107940" duration="2813000" />
     </task>
     <servers />
   </component>
