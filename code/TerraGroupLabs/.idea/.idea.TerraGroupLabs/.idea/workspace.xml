@@ -13,9 +13,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb6238fa-30c1-4a3f-9baa-83961b6dea4f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DataAccess/Configs/appsettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WebAPI/BusinessLogicLayer/PotionLogic.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TerraGroupLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TerraGroupLabs/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataAccess/DataBaseLayer/PotionAccess.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/DataBaseLayer/PotionAccess.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/WebAPI.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +242,7 @@
       <updated>1742938106765</updated>
       <workItem from="1742938107940" duration="3062000" />
       <workItem from="1742941321464" duration="74000" />
-      <workItem from="1742941503199" duration="2081000" />
+      <workItem from="1742941503199" duration="2815000" />
     </task>
     <servers />
   </component>

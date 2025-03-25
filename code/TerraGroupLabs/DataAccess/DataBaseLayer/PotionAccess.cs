@@ -37,10 +37,16 @@ public class PotionAccess : IPotionAccess
         }
     }
 
-public List<Potion> GetAllPotions()
-    {
-        throw new NotImplementedException();
-    }
+    public List<Potion> GetAllPotions()
+        {
+            string? connectionString = _configuration.GetConnectionString("DefaultConnection");
+            
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Potions";
+                return connection.Query<Potion>(query).ToList();
+            }
+        }
 
     public void AddPotion(Potion potion)
     {
