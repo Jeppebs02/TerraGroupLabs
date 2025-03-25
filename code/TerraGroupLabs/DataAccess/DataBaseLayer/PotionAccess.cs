@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Models.Model;
+using Dapper;
 
 namespace DataAccess.DataBaseLayer;
 
@@ -22,14 +24,20 @@ public class PotionAccess : IPotionAccess
     #endregion
 
     #region Methods
-    
-    
+
+
     public Potion GetPotionById(int id)
     {
-        throw new NotImplementedException();
+        string? connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            string query = "SELECT * FROM Potions WHERE id = @id";
+            return connection.QuerySingleOrDefault<Potion>(query, new { id });
+        }
     }
 
-    public List<Potion> GetAllPotions()
+public List<Potion> GetAllPotions()
     {
         throw new NotImplementedException();
     }
