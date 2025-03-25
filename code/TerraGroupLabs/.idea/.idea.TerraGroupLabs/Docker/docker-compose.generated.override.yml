@@ -1,0 +1,44 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.8"
+services:
+  webapi:
+    build:
+      context: "C:\\Users\\jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs"
+      dockerfile: "WebAPI/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/WebAPI.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "webapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\jeppe\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Users\\jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs\\\
+      WebAPI:/app:rw"
+    - "C:\\Users\\jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs:/src:rw"
+    working_dir: "/app"
+  webserver:
+    build:
+      context: "C:\\Users\\jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs"
+      dockerfile: "WebServer/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/WebServer.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net8.0/WebServer.staticwebassets.runtime.CT.json"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "webserver:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\jeppe\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Users\\jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs\\\
+      WebServer:/app:rw"
+    - "C:\\Users\\jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs:/src:rw"
+    working_dir: "/app"
