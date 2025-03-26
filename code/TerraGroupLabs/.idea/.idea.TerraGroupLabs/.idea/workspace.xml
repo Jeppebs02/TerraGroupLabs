@@ -14,8 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fb6238fa-30c1-4a3f-9baa-83961b6dea4f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TerraGroupLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TerraGroupLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/DataAccess.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/DataAccess.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/WebAPI.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +93,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="Docker.WebAPI/Dockerfile">
+  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration name="WebAPI: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/WebAPI/WebAPI.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
@@ -265,6 +263,7 @@
       <workItem from="1742941503199" duration="3764000" />
       <workItem from="1742975467580" duration="203000" />
       <workItem from="1742975696524" duration="390000" />
+      <workItem from="1742976137484" duration="68000" />
     </task>
     <servers />
   </component>
