@@ -18,6 +18,7 @@ namespace WebServer.Controllers
                 .AddJsonFile("Configs/appsettings.json", optional: true, reloadOnChange: true);
             IConfiguration configuration = builder.Build();
             _apiRequester = new ApiRequester(configuration);
+            
         }
 
         // GET: PotionController
@@ -25,7 +26,7 @@ namespace WebServer.Controllers
         {
             try
             {
-                string jsonResponse = await _apiRequester.GetAsync("potion/AllPotions");
+                string jsonResponse = await _apiRequester.GetAsync("api/potion/AllPotions");
                 Console.WriteLine(jsonResponse);
                 List<Potion> potions = JsonConvert.DeserializeObject<List<Potion>>(jsonResponse);
                 return View("Index", potions); // Ensure the view name is correctly specified
@@ -33,6 +34,7 @@ namespace WebServer.Controllers
             catch (Exception ex)
             {
                 // Handle exception (log it, show error message, etc.)
+                Console.WriteLine($"API call failed: {ex.Message}");
                 return View("Error", new List<Potion>()); // Ensure the view name is correctly specified
             }
         }

@@ -14,11 +14,15 @@ public class ApiRequester
     {
         _httpClient = new HttpClient();
         _baseUrl = configuration["ApiSettings:BaseUrl"];
+        Console.WriteLine($"Base URL: {_baseUrl}");
+        
     }
 
     public async Task<string> GetAsync(string endpoint)
     {
+        Console.WriteLine($"Request for url: {_baseUrl}/{endpoint}");
         var response = await _httpClient.GetAsync($"{_baseUrl}/{endpoint}");
+        
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync();
     }

@@ -1,17 +1,18 @@
 ﻿version: '3.8'
 services:
   webserver:
-    image: webserver
     build:
       context: .
       dockerfile: WebServer/Dockerfile
     ports:
-      - "5000:8080"  # Host:5000 → Container:8080
+      - "5000:8080"  # Host 5000 -> Container 8080
+    # you can name the container if you like:
+    container_name: webserver
 
   webapi:
-    image: webapi
     build:
       context: .
       dockerfile: WebAPI/Dockerfile
     ports:
-      - "5001:8080"  # Host:5001 → Container:8080
+      - "5001:8080"  # Host 5001 -> Container 8080
+    container_name: webapi

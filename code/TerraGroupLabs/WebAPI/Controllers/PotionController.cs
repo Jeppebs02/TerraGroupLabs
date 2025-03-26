@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
         public PotionController(IConfiguration configuration)
         {
             _configuration = configuration;
+            Console.WriteLine($"Potion web API controller created");
         }
         
         [HttpGet]
@@ -33,6 +34,8 @@ namespace WebAPI.Controllers
         [HttpGet("AllPotions")]
         public IActionResult GetAllPotions()
         {
+            Console.WriteLine($"Request to get all potions");
+            
             var potionLogic = new PotionLogic(_configuration);
             var potions = potionLogic.GetAllPotions();
             
