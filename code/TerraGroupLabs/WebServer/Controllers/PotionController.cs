@@ -26,6 +26,7 @@ namespace WebServer.Controllers
             try
             {
                 string jsonResponse = await _apiRequester.GetAsync("potion/AllPotions");
+                Console.WriteLine(jsonResponse);
                 List<Potion> potions = JsonConvert.DeserializeObject<List<Potion>>(jsonResponse);
                 return View("Index", potions); // Ensure the view name is correctly specified
             }
