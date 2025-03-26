@@ -16,6 +16,14 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
         
+        [HttpGet]
+        public IActionResult CheckHealth()
+        {
+            return Ok("Potion Controller is up and running");
+        }   
+        
+        
+        
         [HttpGet("AllPotions")]
         public IActionResult GetAllPotions()
         {
