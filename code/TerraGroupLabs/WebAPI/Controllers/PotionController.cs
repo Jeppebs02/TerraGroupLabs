@@ -20,6 +20,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult CheckHealth()
         {
+            Console.WriteLine($"Potion web API health check");
             return Ok("Potion Controller is up and running");
         }   
         

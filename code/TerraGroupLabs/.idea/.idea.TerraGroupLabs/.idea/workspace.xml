@@ -14,10 +14,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fb6238fa-30c1-4a3f-9baa-83961b6dea4f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TerraGroupLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TerraGroupLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/APIRequester/ApiRequester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/APIRequester/ApiRequester.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/Controllers/PotionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/Controllers/PotionController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebServer/Controllers/PotionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebServer/Controllers/PotionController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +266,7 @@
       <workItem from="1742985636016" duration="73000" />
       <workItem from="1742985743299" duration="597000" />
       <workItem from="1743028571151" duration="89000" />
-      <workItem from="1743028962484" duration="4051000" />
+      <workItem from="1743028962484" duration="4494000" />
     </task>
     <servers />
   </component>
