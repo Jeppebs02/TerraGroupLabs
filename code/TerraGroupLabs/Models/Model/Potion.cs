@@ -2,14 +2,19 @@
 
 public class Potion
 {
-    public int id {get;set;}
-    public string name {get;set;}
-    public double price {get;set;}
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public double Price { get; set; }
 
-    public Potion(int id_,string name_,double price_)
+    public Potion(int id, string name, double price)
     {
-        this.id = id_;
-        this.name = name_;
-        this.price = price_;
+        this.Id = id;
+        this.Name = name;
+        this.Price = price;
+    }
+    
+    public Potion()
+    {
+        
     }
 }
