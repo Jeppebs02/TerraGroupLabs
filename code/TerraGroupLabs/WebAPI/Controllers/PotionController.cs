@@ -4,7 +4,7 @@ using WebAPI.BusinessLogicLayer;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/potion")]
     [ApiController]
     public class PotionController : ControllerBase
     {
@@ -23,7 +23,13 @@ namespace WebAPI.Controllers
         }   
         
         
+        [HttpGet("CheckHealth2")]
+        public IActionResult CheckHealth2()
+        {
+            return Ok("Potion Controller is up and running and supports route parameters");
+        }
         
+                
         [HttpGet("AllPotions")]
         public IActionResult GetAllPotions()
         {
@@ -40,6 +46,8 @@ namespace WebAPI.Controllers
             }
 
         }
+        
+        
         
         
     }

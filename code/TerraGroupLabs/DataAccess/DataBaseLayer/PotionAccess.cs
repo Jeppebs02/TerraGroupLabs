@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
 using Models.Model;
 using Dapper;
@@ -30,7 +30,7 @@ public class PotionAccess : IPotionAccess
     {
         string? connectionString = _configuration.GetConnectionString("DefaultConnection");
 
-        using (SqlConnection connection = new SqlConnection(connectionString))
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             string query = "SELECT * FROM Potions WHERE id = @id";
             return connection.QuerySingleOrDefault<Potion>(query, new { id });
@@ -38,15 +38,15 @@ public class PotionAccess : IPotionAccess
     }
 
     public List<Potion> GetAllPotions()
+    {
+        string? connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
-            string? connectionString = _configuration.GetConnectionString("DefaultConnection");
-            
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT * FROM Potions";
-                return connection.Query<Potion>(query).ToList();
-            }
+            string query = "SELECT * FROM Potions";
+            return connection.Query<Potion>(query).ToList();
         }
+    }
 
     public void AddPotion(Potion potion)
     {
