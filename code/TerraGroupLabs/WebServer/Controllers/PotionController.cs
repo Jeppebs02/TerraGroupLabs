@@ -12,20 +12,11 @@ namespace WebServer.Controllers
         //Potion API requests will be handled here
         private readonly ApiRequester _apiRequester;
 
-        public PotionController(ApiRequester apiRequester)
+        public PotionController()
         {
-            _apiRequester = apiRequester;
-        }
-
-        public PotionController(IConfiguration configuration = null)
-        {
-            if (configuration == null)
-            {
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("Webserver/Configs/appsettings.json", optional: false, reloadOnChange: true);
-                configuration = builder.Build();
-            }
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("Configs/appsettings.json", optional: true, reloadOnChange: true);
+            IConfiguration configuration = builder.Build();
             _apiRequester = new ApiRequester(configuration);
         }
 
