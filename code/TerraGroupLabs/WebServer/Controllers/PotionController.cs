@@ -33,7 +33,7 @@ namespace WebServer.Controllers
             catch (Exception ex)
             {
                 // Handle exception (log it, show error message, etc.)
-                return View("Index", new List<Potion>()); // Ensure the view name is correctly specified
+                return View("Error", new List<Potion>()); // Ensure the view name is correctly specified
             }
         }
 

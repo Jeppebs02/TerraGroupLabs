@@ -6,23 +6,32 @@
 
 <div class="text-center">
     <h1 class="display-4">Potions</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Id</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var potion in Model)
-            {
+    @if(Model == null || !Model.Any()) {
+        <p>No potions available.</p>
+    } else {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@potion.Name</td>
-                    <td>@potion.Id</td>
-                    <td>@potion.Price</td>
+                    <th>Name</th>
+                    <th>Id</th>
+                    <th>Price</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var potion in Model)
+                {
+                    <tr>
+                        <td>@potion.Name</td>
+                        <td>@potion.Id</td>
+                        <td>@potion.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
+
+<script>
+    console.log("Hello from the potion index page");
+    console.log(@Html.Raw(Json.Serialize(Model)));
+</script>
