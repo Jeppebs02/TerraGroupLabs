@@ -1,9 +1,9 @@
 /* Base Theme Colors */
 :root {
-  --primary-color: #258cfb;       /* Main blue */
-  --accent-color: #5bc0ff;        /* Light blue */
-  --bg-color: #ffffff;            /* White background */
-  --text-color: #000000;          /* Black text */
+  --primary-color: #258cfb;  /* Main blue */
+  --accent-color: #5bc0ff;   /* Light blue */
+  --bg-color: #ffffff;       /* White background */
+  --text-color: #000000;     /* Black text */
   --heading-color: #1a1a1a;
   --border-radius: 6px;
 }
@@ -16,7 +16,8 @@
 }
 
 html, body {
-  height: 100%;
+  /* Use auto height so the page can scroll if needed */
+  min-height: 100%;
   font-size: 16px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
@@ -70,21 +71,24 @@ h1, h2, h3, h4 {
   outline: none;
 }
 
-/* Navigation Bar */
+/* Navigation Bar Overrides */
+/* Remove solid white from navbar, add semi-transparent white */
 .navbar {
-  background-color: var(--primary-color);
-  color: white;
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: var(--text-color);
   padding: 1rem;
 }
 
 .navbar a {
-  color: white;
+  color: var(--text-color) !important;
   text-decoration: none;
   margin-right: 1rem;
 }
 
 .navbar a:hover {
-  color: var(--accent-color);
+  color: var(--accent-color) !important;
 }
 
 /* Table Styling */
@@ -122,11 +126,9 @@ tr:hover {
   html {
     font-size: 14px;
   }
-
   .container {
     padding: 1rem;
   }
-
   .navbar {
     flex-direction: column;
   }
@@ -145,10 +147,11 @@ body::before {
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: -2;
+  /* Place it behind everything except the overlay */
+  z-index: 0;
 }
 
-/* Optional dark overlay for contrast */
+/* Dark overlay for contrast behind content */
 body::after {
   content: "";
   position: fixed;
@@ -157,5 +160,11 @@ body::after {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
-  z-index: -1;
+  z-index: 1;
+}
+
+/* Make main / footer sit above overlay */
+main, footer {
+  position: relative;
+  z-index: 2;
 }
