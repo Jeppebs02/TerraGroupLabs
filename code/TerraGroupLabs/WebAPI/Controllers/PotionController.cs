@@ -28,6 +28,7 @@ namespace WebAPI.Controllers
         [HttpGet("CheckHealth2")]
         public IActionResult CheckHealth2()
         {
+            Console.WriteLine($"Potion web API health check 2");
             return Ok("Potion Controller is up and running and supports route parameters test deployyyyyy");
         }
         
