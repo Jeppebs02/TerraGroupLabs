@@ -161,6 +161,8 @@ body::after {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   z-index: 1;
+  /* 🟢 Disable pointer events so navbar is clickable */
+  pointer-events: none;
 }
 
 /* Make main / footer sit above overlay */
