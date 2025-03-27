@@ -15,18 +15,27 @@
   box-sizing: border-box;
 }
 
-html {
+html, body {
+  height: 100%;
   font-size: 16px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  position: relative;
-  min-height: 100%;
 }
 
+/* Flex layout to support sticky footer */
 body {
-  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
   line-height: 1.6;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  margin-top: auto;
 }
 
 /* Headings */
@@ -123,32 +132,30 @@ tr:hover {
   }
 }
 
-
-/* Background blur effect */
+/* Full-page blurred background image */
 body::before {
   content: "";
-  background-image: url('/static/img/Escape_from_Tarkov_Terragroup_Labs_scanlines_logo_simple_background_minimalism-2217362-1262340981.jpg');
+  background-image: url('/static/img/TGLABS-Background.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   filter: blur(12px) brightness(0.4);
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   z-index: -2;
 }
 
-/* Optional dark overlay for better contrast */
+/* Optional dark overlay for contrast */
 body::after {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background: rgba(0, 0, 0, 0.4);
   z-index: -1;
 }
-
-
