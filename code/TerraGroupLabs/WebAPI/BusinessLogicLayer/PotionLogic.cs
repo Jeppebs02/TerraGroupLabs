@@ -31,4 +31,10 @@ public class PotionLogic
     }
     
     
+    public bool DeletePotion(int id)
+    {
+        return _potionAccess.DeletePotion(id);
+    }
+    
+    
 }

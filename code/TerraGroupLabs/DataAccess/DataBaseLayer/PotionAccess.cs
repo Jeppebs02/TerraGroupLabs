@@ -60,14 +60,21 @@ public class PotionAccess : IPotionAccess
         }
     }
 
-    public void UpdatePotion(Potion potion)
+    public bool UpdatePotion(Potion potion)
     {
         throw new NotImplementedException();
     }
 
-    public void DeletePotion(int id)
+    public bool DeletePotion(int id)
     {
-        throw new NotImplementedException();
+        string? connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+            string query = "DELETE FROM Potions WHERE id = @id";
+            int rowsAffected = connection.Execute(query, new { id });
+            return rowsAffected > 0;
+        }
     }
     
 

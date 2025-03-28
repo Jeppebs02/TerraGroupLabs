@@ -35,4 +35,19 @@ public class ApiRequester
         return await response.Content.ReadAsStringAsync();
     }
     
+    public async Task<string> PutAsync(string endpoint, string json)
+    {
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PutAsync($"{_baseUrl}/{endpoint}", content);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsStringAsync();
+    }
+    
+    public async Task<string> DeleteAsync(string endpoint)
+    {
+        var response = await _httpClient.DeleteAsync($"{_baseUrl}/{endpoint}");
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsStringAsync();
+    }
+    
 }

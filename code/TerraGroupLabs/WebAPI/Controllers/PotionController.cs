@@ -49,6 +49,21 @@ namespace WebAPI.Controllers
             
         }
         
+        [HttpDelete("{id}")]
+        public IActionResult DeletePotion(int id)
+        {
+            Console.WriteLine($"Potion web API delete potion with id: {id}");
+            
+            if (_potionLogic.DeletePotion(id))
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound("Potion not found");
+            }
+        }
+        
         
         [HttpGet("CheckHealth2")]
         public IActionResult CheckHealth2()

@@ -10,7 +10,7 @@ public interface IPotionAccess
     
     bool AddPotion(Potion potion);
     
-    void UpdatePotion(Potion potion);
+    bool UpdatePotion(Potion potion);
     
-    void DeletePotion(int id);
+    bool DeletePotion(int id);
 }

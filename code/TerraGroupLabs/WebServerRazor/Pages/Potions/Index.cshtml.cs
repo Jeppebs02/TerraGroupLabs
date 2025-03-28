@@ -45,8 +45,13 @@ public class Index : PageModel
     }
     
     
-    public IActionResult OnPost(string name, int price)
+    public async Task<IActionResult> OnPostAdd(string name, int price)
     {
+        //The method name OnPostAdd is a mix of <form method="post" asp-page-handler="Add">
+        //OnPost is from the form method = post which is default. 
+        //Then we add the handler name Add to the method name.
+        //This way we can have multiple post methods in the same page.
+        
         // Create a new potion object
         Potion newPotion = new Potion
         {
@@ -58,14 +63,18 @@ public class Index : PageModel
         string jsonPotion = JsonConvert.SerializeObject(newPotion);
         
         // Send the POST request to the API
-        _apiRequester.PostAsync("potion", jsonPotion).Wait();
-    
-        // Handle form submission here
-        // You can access the submitted data using Potions property
-        // For example, you can save the data to the database or perform other actions
-        
+        await _apiRequester.PostAsync("potion", jsonPotion);
         
         
         return RedirectToPage(Potions); // Redirect to the same page after processing
+    }
+    
+    
+    public async Task<IActionResult> OnPostDelete(int id)
+    {
+        // Send the DELETE request to the API
+        await _apiRequester.DeleteAsync($"potion/{id}");
+        
+        return RedirectToPage(); // Redirect to the same page after processing
     }
 }
