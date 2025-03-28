@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{B8D4ECE1-497B-4BB0-A660-1B5A6D0FF0E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServerRazor", "WebServerRazor\WebServerRazor.csproj", "{B9951F44-90B0-475F-8497-42437ECCCC45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +37,9 @@ Global
 		{B8D4ECE1-497B-4BB0-A660-1B5A6D0FF0E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D4ECE1-497B-4BB0-A660-1B5A6D0FF0E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8D4ECE1-497B-4BB0-A660-1B5A6D0FF0E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9951F44-90B0-475F-8497-42437ECCCC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9951F44-90B0-475F-8497-42437ECCCC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9951F44-90B0-475F-8497-42437ECCCC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9951F44-90B0-475F-8497-42437ECCCC45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
