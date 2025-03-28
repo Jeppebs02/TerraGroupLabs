@@ -13,7 +13,22 @@
 </head>
 <body>
 <div>
-    
+    <h1>Potions</h1>
+    <p>List of potions:</p>
+    <ul>
+        @foreach (var potion in Model.Potions)
+        {
+            <li>@potion.Id - @potion.Name - @potion.Price</li>
+        }
+    </ul>
+
+    <h2>Add a new potion</h2>
+    <form method="post">
+        <input type="text" name="name" placeholder="Potion Name" required />
+        <input type="number" name="price" placeholder="0" required />
+        <button type="submit">Add Potion</button>
+    </form>
+
 </div>
 </body>
 </html>

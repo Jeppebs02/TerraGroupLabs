@@ -48,9 +48,16 @@ public class PotionAccess : IPotionAccess
         }
     }
 
-    public void AddPotion(Potion potion)
+    public bool AddPotion(Potion potion)
     {
-        throw new NotImplementedException();
+        string? connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+            string query = "INSERT INTO Potions (name, price) VALUES (@Name, @Price)";
+            int rowsAffected = connection.Execute(query, potion);
+            return rowsAffected > 0;
+        }
     }
 
     public void UpdatePotion(Potion potion)

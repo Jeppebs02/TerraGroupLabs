@@ -25,5 +25,10 @@ public class PotionLogic
         return _potionAccess.GetAllPotions();
     }
     
+    public bool AddPotion(Potion potion)
+    {
+        return _potionAccess.AddPotion(potion);
+    }
+    
     
 }

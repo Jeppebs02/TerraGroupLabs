@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models.Model;
 using WebAPI.BusinessLogicLayer;
 
 namespace WebAPI.Controllers
@@ -10,11 +11,14 @@ namespace WebAPI.Controllers
     {
         
         private readonly IConfiguration _configuration;
+        private PotionLogic _potionLogic;
         
         public PotionController(IConfiguration configuration)
         {
             _configuration = configuration;
             Console.WriteLine($"Potion web API controller created");
+            _potionLogic = new PotionLogic(_configuration);
+            Console.WriteLine($"Potion web API controller created with logic layer");
         }
         
         [HttpGet]
@@ -22,7 +26,28 @@ namespace WebAPI.Controllers
         {
             Console.WriteLine($"Potion web API health check");
             return Ok("Potion Controller is up and running");
-        }   
+        }  
+        
+        [HttpPost]
+        public IActionResult CreatePotion([FromBody] Potion potion)
+        {
+            Console.WriteLine($"Potion web API create potion");
+            
+            if (potion == null)
+            {
+                return BadRequest("Potion data is null");
+            }
+            
+            if(_potionLogic.AddPotion(potion))
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Failed to create potion");
+            }
+            
+        }
         
         
         [HttpGet("CheckHealth2")]

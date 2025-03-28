@@ -27,11 +27,10 @@ public class Index : PageModel
 
     public async Task<IActionResult> OnGetAsync()
     {
-        //Potions = await _apiRequester.GetAsync<List<Potion>>("api/potion/AllPotions");
         
         try
         {
-            string jsonResponse = await _apiRequester.GetAsync("api/potion/AllPotions");
+            string jsonResponse = await _apiRequester.GetAsync("potion/AllPotions");
             Console.WriteLine(jsonResponse);
             Potions = JsonConvert.DeserializeObject<List<Potion>>(jsonResponse);
         }
@@ -43,5 +42,30 @@ public class Index : PageModel
         }
         
         return Page();
+    }
+    
+    
+    public IActionResult OnPost(string name, int price)
+    {
+        // Create a new potion object
+        Potion newPotion = new Potion
+        {
+            Name = name,
+            Price = price
+        };
+        
+        // Convert the potion object to JSON
+        string jsonPotion = JsonConvert.SerializeObject(newPotion);
+        
+        // Send the POST request to the API
+        _apiRequester.PostAsync("potion", jsonPotion).Wait();
+    
+        // Handle form submission here
+        // You can access the submitted data using Potions property
+        // For example, you can save the data to the database or perform other actions
+        
+        
+        
+        return RedirectToPage(Potions); // Redirect to the same page after processing
     }
 }

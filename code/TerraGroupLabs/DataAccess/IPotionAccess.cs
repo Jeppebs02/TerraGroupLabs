@@ -8,7 +8,7 @@ public interface IPotionAccess
     
     List<Potion> GetAllPotions();
     
-    void AddPotion(Potion potion);
+    bool AddPotion(Potion potion);
     
     void UpdatePotion(Potion potion);
     
