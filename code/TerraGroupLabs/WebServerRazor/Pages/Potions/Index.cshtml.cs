@@ -77,4 +77,23 @@ public class Index : PageModel
         
         return RedirectToPage(); // Redirect to the same page after processing
     }
+    
+    public async Task<IActionResult> OnPostUpdate(int id, string name, int price)
+    {
+        // Create a new potion object
+        Potion updatedPotion = new Potion
+        {
+            Id = id,
+            Name = name,
+            Price = price
+        };
+        
+        // Convert the potion object to JSON
+        string jsonPotion = JsonConvert.SerializeObject(updatedPotion);
+        
+        // Send the PUT request to the API
+        await _apiRequester.PutAsync($"potion/{id}", jsonPotion);
+        
+        return RedirectToPage(); // Redirect to the same page after processing
+    }
 }

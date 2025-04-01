@@ -94,18 +94,18 @@ namespace WebAPI.Controllers
             Console.WriteLine($"Potion web API health check 2");
             return Ok("Potion Controller is up and running and supports route parameters test deployyyyyy");
         }
-        
-                
+
+
         [HttpGet("AllPotions")]
         public IActionResult GetAllPotions()
         {
             LogRequest();
             Console.WriteLine($"Request to get all potions");
-            
+
             var potionLogic = new PotionLogic(_configuration);
             var potions = potionLogic.GetAllPotions();
-            
-            if(potions.Count == 0)
+
+            if (potions.Count == 0)
             {
                 return NotFound();
             }
@@ -113,8 +113,30 @@ namespace WebAPI.Controllers
             {
                 return Ok(potions);
             }
-
         }
+
+        [HttpPut("{id}")]
+            public IActionResult UpdatePotion(int id, [FromBody] Potion potion)
+            {
+                LogRequest();
+                Console.WriteLine($"Potion web API update potion with id: {id}");
+
+                if (potion == null || potion.Id != id)
+                {
+                    return BadRequest("Potion data is null or ID mismatch");
+                }
+
+                if (_potionLogic.UpdatePotion(potion))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound("Potion not found");
+                }
+            }
+
+        
         
         
         

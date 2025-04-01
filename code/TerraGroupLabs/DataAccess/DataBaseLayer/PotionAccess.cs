@@ -62,7 +62,14 @@ public class PotionAccess : IPotionAccess
 
     public bool UpdatePotion(Potion potion)
     {
-        throw new NotImplementedException();
+        string? connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+            string query = "UPDATE Potions SET name = @Name, price = @Price WHERE id = @Id";
+            int rowsAffected = connection.Execute(query, potion);
+            return rowsAffected > 0;
+        }
     }
 
     public bool DeletePotion(int id)

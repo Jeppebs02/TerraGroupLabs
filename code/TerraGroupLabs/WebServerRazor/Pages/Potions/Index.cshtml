@@ -9,7 +9,7 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Potions</title>
 </head>
 <body>
 <div>
@@ -45,6 +45,17 @@
     <form method="post" asp-page-handler="Delete">
         <input type="number" name="id" placeholder="Potion ID" required />
         <button type="submit">Delete Potion</button>
+    </form>
+    
+    <br/>
+    
+    
+    <h2>Update a potion by ID</h2>
+    <form method="post" asp-page-handler="Update">
+        <input type="number" name="id" placeholder="Potion ID" required />
+        <input type="text" name="name" placeholder="Potion Name" required />
+        <input type="number" name="price" placeholder="0" required />
+        <button type="submit">Update Potion</button>
     </form>
     
 </div>

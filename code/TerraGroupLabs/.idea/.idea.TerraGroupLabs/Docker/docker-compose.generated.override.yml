@@ -3,7 +3,7 @@ version: "3.8"
 services:
   webapi:
     build:
-      context: "C:\\Users\\Jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs"
+      context: "/home/twosix/Documents/GitHub/TerraGroupLabs/code/TerraGroupLabs"
       dockerfile: "WebAPI/Dockerfile"
       target: "base"
     command: []
@@ -16,14 +16,13 @@ services:
     image: "webapi:dev"
     ports: []
     volumes:
-    - "C:\\Users\\Jeppe\\.nuget\\packages:/home/app/.nuget/packages"
-    - "C:\\Users\\Jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs\\\
-      WebAPI:/app:rw"
-    - "C:\\Users\\Jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs:/src:rw"
+    - "/home/twosix/.nuget/packages:/home/app/.nuget/packages"
+    - "/home/twosix/Documents/GitHub/TerraGroupLabs/code/TerraGroupLabs/WebAPI:/app:rw"
+    - "/home/twosix/Documents/GitHub/TerraGroupLabs/code/TerraGroupLabs:/src:rw"
     working_dir: "/app"
   webserver:
     build:
-      context: "C:\\Users\\Jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs"
+      context: "/home/twosix/Documents/GitHub/TerraGroupLabs/code/TerraGroupLabs"
       dockerfile: "WebServerRazor/Dockerfile"
       target: "base"
     command: []
@@ -37,8 +36,7 @@ services:
     image: "webserverrazor:dev"
     ports: []
     volumes:
-    - "C:\\Users\\Jeppe\\.nuget\\packages:/home/app/.nuget/packages"
-    - "C:\\Users\\Jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs\\\
-      WebServerRazor:/app:rw"
-    - "C:\\Users\\Jeppe\\Documents\\GitHub\\TerraGroupLabs\\code\\TerraGroupLabs:/src:rw"
+    - "/home/twosix/.nuget/packages:/home/app/.nuget/packages"
+    - "/home/twosix/Documents/GitHub/TerraGroupLabs/code/TerraGroupLabs/WebServerRazor:/app:rw"
+    - "/home/twosix/Documents/GitHub/TerraGroupLabs/code/TerraGroupLabs:/src:rw"
     working_dir: "/app"
