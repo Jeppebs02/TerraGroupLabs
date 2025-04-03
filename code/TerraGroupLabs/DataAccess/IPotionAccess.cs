@@ -1,10 +1,13 @@
 ﻿using Models.Model;
+using Models.Model.Potion;
+using PotionModels = Models.Model.Potion.Potion;
+
 
 namespace DataAccess;
 
 public interface IPotionAccess
 {
-    Potion GetPotionById(int id);
+    PotionModels GetPotionById(int id);
     
     List<Potion> GetAllPotions();
     

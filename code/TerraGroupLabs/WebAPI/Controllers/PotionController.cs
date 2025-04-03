@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models.Model;
+using PotionModels = Models.Model.Potion.Potion;
 using WebAPI.BusinessLogicLayer;
 
 namespace WebAPI.Controllers
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
         }  
         
         [HttpPost]
-        public IActionResult CreatePotion([FromBody] Potion potion)
+        public IActionResult CreatePotion([FromBody] PotionModels potion)
         {
             LogRequest();
             Console.WriteLine($"Potion web API create potion");
@@ -116,7 +116,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-            public IActionResult UpdatePotion(int id, [FromBody] Potion potion)
+            public IActionResult UpdatePotion(int id, [FromBody] PotionModels potion)
             {
                 LogRequest();
                 Console.WriteLine($"Potion web API update potion with id: {id}");

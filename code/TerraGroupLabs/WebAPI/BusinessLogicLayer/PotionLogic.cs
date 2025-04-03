@@ -1,6 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.DataBaseLayer;
-using Models.Model;
+using PotionModels = Models.Model.Potion.Potion;
 
 namespace WebAPI.BusinessLogicLayer;
 
@@ -15,17 +15,17 @@ public class PotionLogic
         _potionAccess = new PotionAccess(inConfiguration);
     }
     
-    public Potion GetPotionById(int id)
+    public PotionModels GetPotionById(int id)
     {
         return _potionAccess.GetPotionById(id);
     }
     
-    public List<Potion> GetAllPotions()
+    public List<PotionModels> GetAllPotions()
     {
         return _potionAccess.GetAllPotions();
     }
     
-    public bool AddPotion(Potion potion)
+    public bool AddPotion(PotionModels potion)
     {
         return _potionAccess.AddPotion(potion);
     }
@@ -36,7 +36,7 @@ public class PotionLogic
         return _potionAccess.DeletePotion(id);
     }
     
-    public bool UpdatePotion(Potion potion)
+    public bool UpdatePotion(PotionModels potion)
     {
         return _potionAccess.UpdatePotion(potion);
     }

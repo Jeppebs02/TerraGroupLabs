@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Models.APIRequester;
-using Models.Model;
+using Models.Model.Potion;
 using Newtonsoft.Json;
 
 namespace WebServerRazor.Pages.Potions;

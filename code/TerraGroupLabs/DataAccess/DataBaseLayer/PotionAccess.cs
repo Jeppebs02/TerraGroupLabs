@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
-using Models.Model;
+using PotionModels = Models.Model.Potion.Potion;
 using Dapper;
 
 namespace DataAccess.DataBaseLayer;
@@ -26,29 +26,29 @@ public class PotionAccess : IPotionAccess
     #region Methods
 
 
-    public Potion GetPotionById(int id)
+    public PotionModels GetPotionById(int id)
     {
         string? connectionString = _configuration.GetConnectionString("DefaultConnection");
 
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             string query = "SELECT * FROM Potions WHERE id = @id";
-            return connection.QuerySingleOrDefault<Potion>(query, new { id });
+            return connection.QuerySingleOrDefault<PotionModels>(query, new { id });
         }
     }
 
-    public List<Potion> GetAllPotions()
+    public List<PotionModels> GetAllPotions()
     {
         string? connectionString = _configuration.GetConnectionString("DefaultConnection");
 
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             string query = "SELECT * FROM Potions";
-            return connection.Query<Potion>(query).ToList();
+            return connection.Query<PotionModels>(query).ToList();
         }
     }
 
-    public bool AddPotion(Potion potion)
+    public bool AddPotion(PotionModels potion)
     {
         string? connectionString = _configuration.GetConnectionString("DefaultConnection");
 
@@ -60,7 +60,7 @@ public class PotionAccess : IPotionAccess
         }
     }
 
-    public bool UpdatePotion(Potion potion)
+    public bool UpdatePotion(PotionModels potion)
     {
         string? connectionString = _configuration.GetConnectionString("DefaultConnection");
 

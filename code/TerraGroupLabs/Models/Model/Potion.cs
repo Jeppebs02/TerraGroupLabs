@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Models.Model;
+namespace Models.Model.Potion;
 
 public class Potion
 {
