@@ -1,24 +1,51 @@
 ﻿@model List<Models.Model.Potion.Potion>
-// Razor views don’t inherit alias context from controller files — they need the fully qualified name
 
 @{
     ViewData["Title"] = "Potions Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Potions</h1>
-    <p>Soon you can see a list of potions</p>
+<h2>Potions</h2>
 
-    <h1>Potions</h1>
-    <p>List of potions:</p>
-    <ul>
-        @foreach (var potion in Model)
-        {
-            <p>@potion.Id</p>
-            <p>@potion.Name</p>
-            <p>@potion.Price</p>
-        }
+<!-- Example: Link to create a new potion (if you have a Create action) -->
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 
-    </ul>
-
-</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Price)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <!-- Typical edit/details/delete links (optional) -->
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
