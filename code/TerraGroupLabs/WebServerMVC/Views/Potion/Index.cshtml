@@ -1,0 +1,23 @@
+﻿@model List<Models.Model.Potion>
+
+@{
+    ViewData["Title"] = "Potions Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Potions</h1>
+    <p>Soon you can see a list of potions</p>
+
+    <h1>Potions</h1>
+    <p>List of potions:</p>
+    <ul>
+        @foreach (var potion in Model)
+        {
+            <p>@potion.Id</p>
+            <p>@potion.Name</p>
+            <p>@potion.Price</p>
+        }
+
+    </ul>
+
+</div>
