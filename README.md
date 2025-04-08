@@ -1,5 +1,3 @@
-
-```markdown
 # TerraGroupLabs
 Site for random stuff
 
@@ -62,3 +60,6 @@ Add an `"ApiSettings"` section with a `"BaseUrl"` key pointing to the API.
     "BaseUrl": "http://webapi:8080/api"
   }
 }
+```
+
+---
