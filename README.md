@@ -1,4 +1,3 @@
-Sure — here is your full markdown content with instructions preserved and formatted clearly:
 
 ```markdown
 # TerraGroupLabs
