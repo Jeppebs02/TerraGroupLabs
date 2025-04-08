@@ -3,7 +3,7 @@ services:
   webserver:
     build:
       context: .
-      dockerfile: WebServerMVC/Dockerfile
+      dockerfile: WebServerRazor/Dockerfile
     ports:
       - "5000:8080"  # Host 5000 -> Container 8080
     # you can name the container if you like:
