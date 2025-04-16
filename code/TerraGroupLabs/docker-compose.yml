@@ -7,7 +7,7 @@ services:
     ports:
       - "5000:8080"  # Host 5000 -> Container 8080
     # you can name the container if you like:
-    container_name: webserver
+    container_name: webserverSpike
 
   webapi:
     build:
@@ -15,4 +15,4 @@ services:
       dockerfile: WebAPI/Dockerfile
     ports:
       - "5001:8080"  # Host 5001 -> Container 8080
-    container_name: webapi
+    container_name: webapiSpike
