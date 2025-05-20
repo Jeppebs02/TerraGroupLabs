@@ -112,3 +112,58 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+
+
+/* chat specific css */
+.chat-container {
+    display: flex;
+    gap: 20px;
+}
+
+.user-list {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.message-area {
+    flex: 3;
+}
+
+.messages {
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 400px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    margin-bottom: 8px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+    .message.local-user {
+        background-color: #e1ffc7; /* Light green for local user */
+        align-self: flex-end;
+        text-align: right;
+    }
+
+    .message.remote-user {
+        background-color: #f0f0f0; /* Light grey for remote users */
+        align-self: flex-start;
+    }
+
+    .message small {
+        font-size: 0.8em;
+        color: #555;
+    }
+
+    .message p {
+        margin: 0;
+    }

@@ -1,0 +1,145 @@
+﻿ @page "/chat"
+ @using WebClient.Services
+ @inject ChatService ChatClient
+ @implements IDisposable
+ @implements IAsyncDisposable
+
+<PageTitle>SpacetimeDB Chat</PageTitle>
+
+<h1>SpacetimeDB Chat</h1>
+
+@if (!ChatClient.IsConnected)
+{
+    <p><em>Connecting to chat server...</em></p>
+    <button class="btn btn-primary" @onclick="ConnectAndRefresh">Connect</button>
+}
+else
+{
+    <p>Welcome, <strong>@ChatClient.CurrentUsername</strong>!</p>
+    <div class="chat-container">
+        <div class="user-list">
+            <h4>Online Users</h4>
+            <ul>
+                @foreach (var user in ChatClient.Users.Where(u => u.Online).OrderBy(u => u.DisplayName))
+                {
+                    <li>@user.DisplayName</li>
+                }
+            </ul>
+            <h4>Offline Users</h4>
+            <ul>
+                @foreach (var user in ChatClient.Users.Where(u => !u.Online).OrderBy(u => u.DisplayName))
+                {
+                    <li style="opacity: 0.6;">@user.DisplayName</li>
+                }
+            </ul>
+        </div>
+        <div class="message-area">
+            <div class="messages" id="messageList">
+                @foreach (var msg in ChatClient.Messages.OrderBy(m => m.Sent))
+                {
+                    <div class="message @(msg.IsLocalUser ? "local-user" : "remote-user")">
+                        <small><strong>@msg.SenderName</strong> (@msg.FormattedTimestamp):</small>
+                        <p>@msg.Text</p>
+                    </div>
+                }
+            </div>
+            <div class="input-group mt-3">
+                <input @bind="currentMessage" @onkeyup="HandleInputKeyUp" class="form-control" placeholder="Type your message or /name newname" />
+                <button @onclick="SendMessage" class="btn btn-primary">Send</button>
+            </div>
+            <div class="input-group mt-1">
+                <input @bind="newName" class="form-control form-control-sm" placeholder="New name" />
+                <button @onclick="ChangeName" class="btn btn-secondary btn-sm">Set Name</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string? currentMessage;
+    private string? newName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ChatClient.PropertyChanged += OnChatClientPropertyChanged;
+        ChatClient.ConnectionStateChanged += OnConnectionStateChanged;
+        await ChatClient.ConnectAsync(); // Automatically connect on page load
+    }
+
+    private async Task ConnectAndRefresh()
+    {
+        if (!ChatClient.IsConnected)
+        {
+            await ChatClient.ConnectAsync();
+        }
+        StateHasChanged(); // Ensure UI updates after attempting connection
+    }
+
+
+    private void OnChatClientPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        // This will tell Blazor to re-render when Messages, Users, or IsConnected changes
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void OnConnectionStateChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+
+    private void HandleInputKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            SendMessage();
+        }
+    }
+
+    private void SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(currentMessage))
+        {
+            if (currentMessage.StartsWith("/name "))
+            {
+                var nameToSet = currentMessage.Substring(6).Trim();
+                if (!string.IsNullOrEmpty(nameToSet))
+                {
+                    ChatClient.SetName(nameToSet);
+                }
+            }
+            else
+            {
+                ChatClient.SendMessage(currentMessage);
+            }
+            currentMessage = string.Empty; // Clear input field
+        }
+    }
+
+    private void ChangeName()
+    {
+        if (!string.IsNullOrWhiteSpace(newName))
+        {
+            ChatClient.SetName(newName);
+            newName = string.Empty; // Clear input field
+        }
+    }
+
+    // Implement IDisposable to unsubscribe from events
+    public void Dispose()
+    {
+        ChatClient.PropertyChanged -= OnChatClientPropertyChanged;
+        ChatClient.ConnectionStateChanged -= OnConnectionStateChanged;
+        // ChatService itself has a Dispose method that handles DB disconnection
+        // If ChatService were Scoped instead of Singleton, Blazor would dispose it.
+        // For Singleton, you might manage its lifecycle more explicitly if needed,
+        // but for a chat app that stays connected, this is often fine.
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        // If ChatService implemented IAsyncDisposable
+        // await ChatClient.DisposeAsync();
+        Dispose(); // Call synchronous dispose
+    }
+ }
