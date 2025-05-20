@@ -19,7 +19,7 @@ const string HOST = "http://localhost:3000";
 string UserNameOrIdentity(User user) => user.Name ?? user.Identity.ToString()[..8];
 
 /// The database name we chose when we published our module.
-const string DB_NAME = "quickstart-chat";
+const string DB_NAME = "tg-labs-chat";
 
 /// Load credentials from a file and connect to the database.
 DbConnection ConnectToDB()
