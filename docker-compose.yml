@@ -3,7 +3,7 @@ version: '3.8'
 
 services:
   spacetimedb_server:
-    image: clockworklabs/spacetimedb:latest # Use a specific version for production
+    image: clockworklabs/spacetime:latest # Use a specific version for production
     container_name: spacetimedb_chat_server
     ports:
       - "3000:3000" # HTTP API for clients (as used in Program.cs)
@@ -21,7 +21,7 @@ services:
     # --module-path points to where server.wasm is inside the container (due to the volume mount)
     # --dev enables hot-reloading of the module, very useful for development.
     # --address 0.0.0.0 ensures SpacetimeDB listens on all interfaces inside the container.
-    command: ["start", "--db-name", "tg-labs-chat", "--module-path", "/module/server.wasm", "--dev", "--address", "0.0.0.0"]
+    command: ["start", "--data-dir", "spacetimedb_chat_data"]
     # For production, we might remove --dev and consider not specifying --module-path
     # if we use `spacetimedb publish` and let it manage the module within its data directory.
 

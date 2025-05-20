@@ -1,6 +1,7 @@
 ﻿// WebClient/Services/ChatService.cs
 using SpacetimeDB;
 using SpacetimeDB.Types;
+using SpacetimeDB.ClientApi;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -13,6 +14,9 @@ namespace WebClient.Services
         const string HOST = "http://localhost:3000"; // Or read from config
         const string DB_NAME = "tg-labs-chat";
 
+        private CancellationTokenSource _frameTickCts = new CancellationTokenSource();
+        private bool _isFrameTickLoopRunning = false;
+
         public ObservableCollection<MessageViewModel> Messages { get; } = new();
         public ObservableCollection<UserViewModel> Users { get; } = new();
 
@@ -21,6 +25,58 @@ namespace WebClient.Services
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public event Action? ConnectionStateChanged;
+
+        private async Task FrameTickLoopAsync(CancellationToken token)
+        {
+            _isFrameTickLoopRunning = true;
+            Console.WriteLine("FrameTickLoop started.");
+            try
+            {
+                while (!token.IsCancellationRequested)
+                {
+                    if (_conn != null && _conn.IsActive)
+                    {
+                        try
+                        {
+                            _conn.FrameTick();
+                        }
+                        catch (ObjectDisposedException)
+                        {
+                            Console.WriteLine("FrameTickLoop: DbConnection was disposed, exiting loop.");
+                            break; // Connection was disposed, stop ticking
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Error.WriteLine($"Error during FrameTick: {ex}");
+                            // Potentially add a small delay here to avoid tight loop on continuous errors
+                        }
+                    }
+                    else if (_conn == null) // If connection attempt failed and _conn is still null
+                    {
+                        Console.WriteLine("FrameTickLoop: DbConnection is null, exiting loop.");
+                        break;
+                    }
+
+
+                    // Adjust the delay as needed. 50-100ms is usually a good starting point.
+                    // Too short can be CPU intensive, too long can introduce latency in receiving updates.
+                    await Task.Delay(50, token);
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("FrameTickLoop was canceled.");
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Unhandled exception in FrameTickLoopAsync: {ex}");
+            }
+            finally
+            {
+                _isFrameTickLoopRunning = false;
+                Console.WriteLine("FrameTickLoop stopped.");
+            }
+        }
 
 
         public ChatService()
@@ -33,23 +89,39 @@ namespace WebClient.Services
         {
             if (_conn != null && _conn.IsActive) return;
 
-            _conn = DbConnection.Builder()
-                .WithUri(HOST)
-                .WithModuleName(DB_NAME)
-                .WithToken(AuthToken.Token)
-                .OnConnect(OnConnected)
-                .OnConnectError(OnConnectError)
-                .OnDisconnect(OnDisconnected)
-                .Build();
+            // Cancel any previous frame tick loop
+            _frameTickCts.Cancel();
+            _frameTickCts = new CancellationTokenSource();
 
-            RegisterCallbacks(_conn);
-            // In Blazor WASM, FrameTick is typically handled by the SDK's internal loop
-            // or by JavaScript interop if necessary. For most cases, you don't call it manually like in the console app.
-            // The SDK should manage its own processing.
+            Console.WriteLine("Attempting to connect to SpacetimeDB...");
+            try
+            {
+                _conn = DbConnection.Builder()
+                    .WithUri(HOST)
+                    .WithModuleName(DB_NAME)
+                    .WithToken(AuthToken.Token)
+                    .WithFrameTickMode(FrameTickMode.Manual) // <--- THIS IS THE KEY ADDITION
+                    .OnConnect(OnConnected)
+                    .OnConnectError(OnConnectError)
+                    .OnDisconnect(OnDisconnected)
+                    .Build(); // This now won't try to start its own thread
 
-            // We don't have a separate processing thread in Blazor WASM.
-            // Callbacks will be invoked by the SDK.
+                RegisterCallbacks(_conn);
+
+                // Start your own FrameTick loop if connection is successful (or looks like it will be)
+                // The OnConnected callback will confirm actual connection.
+                if (!_isFrameTickLoopRunning) // Prevent multiple loops
+                {
+                    _ = Task.Run(async () => await FrameTickLoopAsync(_frameTickCts.Token));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Failed to build DbConnection: {ex}");
+                OnConnectError(ex); // Trigger your error handling
+            }
         }
+
 
         private void OnConnected(DbConnection conn, Identity identity, string authToken)
         {
@@ -218,9 +290,18 @@ namespace WebClient.Services
 
         public void Dispose()
         {
+            Console.WriteLine("ChatService Dispose called.");
+            _frameTickCts.Cancel(); // Signal the loop to stop
+
+            // Wait a short moment for the loop to exit, or remove if not critical
+            // Task.Delay(200).Wait(); // Be cautious with .Wait() in UI contexts if not necessary
+
             _conn?.Disconnect();
+            _conn = null; // Ensure it's nullified
         }
     }
+
+
 
     // Helper ViewModels for Blazor data binding
     public class MessageViewModel
@@ -238,7 +319,12 @@ namespace WebClient.Services
             Text = message.Text;
             SenderName = senderName;
             IsLocalUser = isLocalUser;
+        
+        
         }
+
+
+
     }
 
     public class UserViewModel : INotifyPropertyChanged
@@ -272,5 +358,9 @@ namespace WebClient.Services
             Name = user.Name;
             Online = user.Online;
         }
+
+
+
+
     }
 }
