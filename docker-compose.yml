@@ -14,6 +14,8 @@ services:
       # Adjust the source path if your build output is different.
       # :ro makes it read-only in the container, which is good practice.
       - ./code/TerraGroupLabs/server/bin/Release/net8.0/wasi-wasm/AppBundle:/module:ro
+      - ./code/TerraGroupLabs/server:/app/server_project:ro
+      - ./entrypoint.sh:/entrypoint.sh:ro
       # Persist SpacetimeDB data (e.g., the spacetime.db file)
       - spacetimedb_chat_data:/data
     # Command to start SpacetimeDB with your module
@@ -21,7 +23,9 @@ services:
     # --module-path points to where server.wasm is inside the container (due to the volume mount)
     # --dev enables hot-reloading of the module, very useful for development.
     # --address 0.0.0.0 ensures SpacetimeDB listens on all interfaces inside the container.
-    command: ["start", "--data-dir", "spacetimedb_chat_data"]
+    working_dir: /app # Set a working directory if needed for relative paths in publish
+    entrypoint: /entrypoint.sh
+
     # For production, we might remove --dev and consider not specifying --module-path
     # if we use `spacetimedb publish` and let it manage the module within its data directory.
 
