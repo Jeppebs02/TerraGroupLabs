@@ -3,45 +3,25 @@ version: '3.8'
 
 services:
   spacetimedb_server:
-    image: clockworklabs/spacetime:latest
+    image: clockworklabs/spacetime:latest # Use a specific version for production
     container_name: spacetimedb_chat_server
     ports:
-      - "3000:3000"
-      - "3001:3001"
-      - "3002:3002"
+      - "3000:3000" # HTTP API for clients (as used in Program.cs)
+      - "3001:3001" # TCP API for clients (alternative connection method)
+      - "3002:3002" # Admin UI - useful for debugging
     volumes:
-      # Mount the AppBundle directory (containing server.wasm)
+      # Mount the directory containing the compiled WASM module.
+      # Adjust the source path if your build output is different.
+      # :ro makes it read-only in the container, which is good practice.
       - ./code/TerraGroupLabs/server/bin/Release/net8.0/wasi-wasm/AppBundle:/module:ro
-      # This volume will be /data inside the container.
-      # Both publish (implicitly) and start (explicitly) need to use this.
+      # Persist SpacetimeDB data (e.g., the spacetime.db file)
       - spacetimedb_chat_data:/data
-    entrypoint: /bin/sh
-    command:
-      - -c
-      - |
-        set -e # Exit on any error
+    # Command to start SpacetimeDB with your module
+    # --db-name must match what your client expects ("quickstart-chat")
+    # --module-path points to where server.wasm is inside the container (due to the volume mount)
+    # --dev enables hot-reloading of the module, very useful for development.
+    # --address 0.0.0.0 ensures SpacetimeDB listens on all interfaces inside the container.
+    command: ["start", "--data-dir", "spacetimedb_chat_data"]
 
-        echo 'Attempting to publish module, hoping it uses a local data context aligned with /data...'
-        # We use -y to avoid prompts.
-        # We use -b to point to the pre-compiled WASM.
-        # We provide "tg-labs-chat" as the name.
-        # We are NOT providing -s (server), hoping this defaults to a local operation
-        # that stores module metadata in a way that `start --data-dir /data` can find it.
-        # The publish command itself needs to know to use `/data` as its working space.
-        # If it defaults to something like /home/spacetime/.spacetime, we have a mismatch.
-        #
-        # One trick: if the CLI's default data dir can be influenced by `working_dir`
-        # or if certain files in `working_dir` influence it.
-        # Let's set working_dir to /data, hoping publish picks it up as context.
-        cd /data # Change working directory to /data before publishing
-
-        echo "Current directory: $(pwd)"
-        echo "Publishing module 'tg-labs-chat' from /module/server.wasm"
-        spacetime publish -y -b /module/server.wasm tg-labs-chat
-
-        echo 'Publish command completed. Starting server...'
-        # Start command explicitly uses /data, which should now contain the published module info.
-        # Removed --dev as it's not supported by this `start` command.
-        exec spacetime start --listen-addr 0.0.0.0:3000 --data-dir /data
 volumes:
-  spacetimedb_chat_data:
+  spacetimedb_chat_data: # Named volume for data persistence
